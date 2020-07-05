@@ -6,22 +6,24 @@ const userSchema = new mongoose.Schema({
     user: {
         type: String,
         require: true,
+        createIndex: true,
         trim: true
     },
 
     password: {
         type: String,
         require: true,
-        trim: true
+        trim: true,
+        select: false
     }
 
 }, {
     timestamps: true
 })
 
-userSchema.pre('save', function(next){
+userSchema.pre('save', async function(next){
 
-    const hash = bcrypt.hash(this.password, 10)
+    const hash = await bcrypt.hash(this.password, 10)
     this.password = hash
 
     next()

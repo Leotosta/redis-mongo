@@ -13,7 +13,7 @@ app.use(helmet())
 
 ;(async function redisStart(){
     require('./redis/redisdb')(app)
-} )
+})()
 
 require('./control/index') (app)
 
