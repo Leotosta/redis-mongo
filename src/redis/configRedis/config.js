@@ -1,9 +1,11 @@
 
+const HALF_HOURS = 1000 * 60 * 30
+
 const SESSION_OPTIONS = {
     secret: process.env.REDIS_SECRET,
     name: process.env.SESSION_NAME,
     cookie: {
-        maxAge: 1000 * 60 * 30,
+        maxAge: +HALF_HOURS,
         secure: false,
         sameSite: true
     },
@@ -13,5 +15,11 @@ const SESSION_OPTIONS = {
     saveUninitialized: false 
 }
 
+const SESSION_NAME = {
+    port: parseInt(process.env.REDIS_PORT, 10),
+    host: process.env.HOST,
+    password: process.env.REDIS_PASSWORD
+}
 
-module.exports =  SESSION_OPTIONS
+
+module.exports = {SESSION_OPTIONS, SESSION_NAME}

@@ -29,6 +29,11 @@ userSchema.pre('save', async function(next){
     next()
 })
 
+userSchema.set('toJSON', {
+    //params doc, rest(obj), option
+    transform: (doc, { __v, password, ...rest }, options) => rest 
+})
+
 const User = mongoose.model('User', userSchema) 
 
 module.exports = User
