@@ -11,7 +11,7 @@ const SESSION_OPTIONS = {
     },
 
     rolling: true, // if the cookie get expired and the session still actiove, rolling'll update the cookie
-    resave: false,
+    resave: false, // don't change the expires date.
     saveUninitialized: false 
 }
 

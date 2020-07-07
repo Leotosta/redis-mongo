@@ -1,15 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../mongodb/schema')
-const {guest, login, logout, auth} = require('../middlewares/middleware')
+const {guest, login, logout, auth, active} = require('../middlewares/middleware')
 const { compare } = require('bcryptjs')
 
-router.get('/home', async (req, res) => {
+// router.use(active)
+
+router.get('/home', active, async (req, res) => {
     const user = await User.findById(req.session.userId)
 
     return res.json(user)
 })
-
 
 router.post('/SignUp', guest , async (req, res) => {
 
@@ -38,7 +39,7 @@ router.post('/SignUp', guest , async (req, res) => {
 
 })
 
-router.post('/login', guest, async (req, res) =>{
+router.post('/login', guest , async (req, res) =>{
 
     const { user, password } = req.body
 
@@ -65,8 +66,6 @@ router.post('/logout', async (req, res) => {
 
    try{
        await logout(req, res)
-
-
 
    }catch(e){
        console.log(e)
